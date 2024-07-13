@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        // Show the initial text when the document is ready
+        $("#text").fadeIn(1000); // Initial fade-in
+
+        // Click event to activate the sequence
+        $(document).click(function() {
+            // Change text to "checkin" after 3 seconds
+            setTimeout(function() {
+                $("#text").fadeOut(function() {
+                    $("#text2").text("checkin").css({top: '-50%', display: 'block', opacity: 1}).animate({top: '50%', opacity: 1}, 1000, function() {
+                        $(".loading").fadeIn(); // Show loading dots
+                        animateDots(); // Start dot animation
+
+                        // Make "checkin" and dots visible for 3 seconds
+                        setTimeout(function() {
+                            // Start black screen animation just after the checkin text fades out
+                            $("#blackScreen").fadeIn(0).animate({top: '0'}, 1000); // Move upwards
+                            $(".loading").fadeOut(300); // Fade out loading dots
+                            $("#text2").fadeOut(300); // Fade out checkin text
+                        }, 2900); // Trigger after 2.9 seconds
+                    });
+                });
+            }, 3000); // Wait for 3 seconds before starting the sequence
+        });
+    });
+
+    function animateDots() {
+        let dots = $(".dot");
+        let index = 0;
+
+        function showNextDot() {
+            dots.css("opacity", "0"); // Hide all dots
+            dots.eq(index).css("opacity", "1"); // Show current dot
+            index = (index + 1) % dots.length; // Move to the next dot
+            setTimeout(showNextDot, 500); // Repeat every 500ms
+        }
+
+        showNextDot(); // Start the animation
+    }
+    </script>
+    <style>
+        body {
+            margin: 0; /* Remove default margin */
+            overflow: hidden; /* Prevent scrolling */
+        }
+        #text {
+            position: fixed; /* Center the text */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none; /* Initially hidden */
+            color: black; /* Text color */
+            font-family: 'Montserrat', sans-serif; /* Font family */
+            font-size: 48px; /* Font size */
+            font-weight: 700; /* Bold text */
+            z-index: 10000; /* Above everything else */
+        }
+        #text2 {
+            position: fixed; /* Center the text */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none; /* Initially hidden */
+            color: black; /* Text color */
+            font-family: 'Montserrat', sans-serif; /* Font family */
+            font-size: 48px; /* Font size */
+            font-weight: 700; /* Bold text */
+            z-index: 10000; /* Above everything else */
+        }
+        .loading {
+            position: fixed;
+            top: calc(50% + 57px); /* Position below the text */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000; /* Above everything else */
+            display: none; /* Initially hidden */
+        }
+        .dot {
+            display: inline-block; /* Display inline with text */
+            font-size: 48px; /* Font size */
+            color: black; /* Text color */
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s; /* Smooth transition */
+            margin-left: 5px; /* Space between dots */
+        }
+        #blackScreen {
+            position: fixed;
+            top: 100%; /* Start off screen */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black; /* Black screen */
+            z-index: 9999; /* Above everything else */
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+<div id="text">lmao ss</div> <!-- Initial text -->
+<div id="text2"></div> <!-- Placeholder for checkin text -->
+<div class="loading">
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+</div> <!-- Loading dots -->
+<div id="blackScreen"></div> <!-- Black screen -->
+
+</body>
+</html>

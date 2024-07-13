@@ -12,10 +12,10 @@
 
         // Click event to activate the sequence
         $(document).click(function() {
-            // Change text to "checkin" after 3 seconds
+            // Change text to "checkin" after 1 second
             setTimeout(function() {
                 $("#text").fadeOut(function() {
-                    $("#text2").text("checkin").css({top: '-50%', display: 'block', opacity: 1}).animate({top: '50%', opacity: 1}, 1000, function() {
+                    $("#text2").text("checkin ze databas").css({top: '-50%', display: 'block', opacity: 1}).animate({top: '50%', opacity: 1}, 1000, function() {
                         $(".loading").fadeIn(); // Show loading dots
                         animateDots(); // Start dot animation
 
@@ -28,7 +28,7 @@
                         }, 2900); // Trigger after 2.9 seconds
                     });
                 });
-            }, 3000); // Wait for 3 seconds before starting the sequence
+            }, 1000); // Wait for 1 second before starting the sequence
         });
     });
 
